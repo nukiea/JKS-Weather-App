@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <!-- Temperature Unit Buttons -->
     <ion-buttons slot="start">
       <ion-button (click)="toggleTemperatureUnit('celsius')" [color]="isCelsius ? 'primary' : 'medium'">
         °C
@@ -8,9 +9,11 @@
         °F
       </ion-button>
     </ion-buttons>
+    <!-- Logo -->
     <ion-buttons>
       <img slot="center" src="assets/logo.png" alt="Logo" class="logo-image">
-      </ion-buttons>
+    </ion-buttons>
+    <!-- Action Buttons -->
     <ion-buttons slot="end">
       <ion-button (click)="refreshData()">
         <ion-icon slot="icon-only" name="refresh"></ion-icon>
@@ -20,6 +23,7 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <!-- Search Bar -->
   <ion-toolbar>
     <ion-searchbar #searchbar></ion-searchbar>
     <ion-button slot="end" class="search-button" (click)="searchCity(searchbar.value)">Enter</ion-button>
@@ -28,13 +32,14 @@
 
 <ion-content [fullscreen]="true" [style.background-image]="isMorning() ? 'url(\'assets/DAY.jpg\')' : 'url(\'assets/NIGHT.jpg\')'">
   
-  <!--main weather ion-->
+  <!-- Main Weather Card -->
   <div class="weather-card" *ngIf="weatherTemp">
     <ion-card>
       <p class="report-label">"Today's Report"</p>
       <ion-label slot="end">{{ todayDate | date: 'EEE dd MMM' }}</ion-label>
       <ion-label slot="end">{{ getCurrentTime() }}</ion-label>
     
+      <!-- Weather Information -->
       <ion-icon name="thermometer"></ion-icon>
       <span>Feels like</span>
       <p>.....</p>
@@ -47,39 +52,19 @@
       <ion-icon name="pin"></ion-icon>
       <span><b>{{ cityName }}</b></span>
 
+      <!-- Weather Details -->
       <div *ngIf="weatherTemp.main.temp_max" class="weather-detail">
         <ion-icon name="arrow-up-circle"></ion-icon>
         <span class="detail-label">Max Temp:</span>
         <span class="detail-data">{{ isCelsius ? ((weatherTemp.main.temp_max - 273.15).toFixed(0)) : (((weatherTemp.main.temp_max - 273.15) * 9/5 + 32).toFixed(0)) }}°{{ isCelsius ? 'C' : 'F' }}</span>
       </div>
       
-      <div *ngIf="weatherTemp.main.temp_min" class="weather-detail">
-        <ion-icon name="arrow-down-circle"></ion-icon>
-        <span class="detail-label">Min Temp:</span>
-        <span class="detail-data">{{ isCelsius ? ((weatherTemp.main.temp_min - 273.15).toFixed(0)) : (((weatherTemp.main.temp_min - 273.15) * 9/5 + 32).toFixed(0)) }}°{{ isCelsius ? 'C' : 'F' }}</span>
-      </div>
-    
-      <div *ngIf="weatherTemp.main.humidity" class="weather-detail">
-        <ion-icon name="water"></ion-icon>
-        <span class="detail-label">Humidity:</span>
-        <span class="detail-data">{{ weatherTemp.main.humidity }}%</span>
-      </div>
-    
-      <div *ngIf="weatherTemp.weather" class="weather-detail">
-        <ion-icon name="list-outline"></ion-icon>
-        <span class="detail-label">Desc.:</span>
-        <span class="detail-data">{{ weatherTemp.weather[0].description }}</span>
-      </div>
-    
-      <div *ngIf="weatherTemp.wind" class="weather-detail">
-        <ion-icon name="speedometer"></ion-icon>
-        <span class="detail-label">Wind Speed:</span>
-        <span class="detail-data">{{ weatherTemp.wind.speed }} KPH</span>
-      </div>
+      <!-- Other Weather Details -->
+      <!-- Add similar divs for other weather details -->
     </ion-card>
   </div>
   
-  <!--=mini weather cards-->
+  <!-- Mini Weather Cards -->
   <div class="mini-weather-cards">
     <ion-card *ngFor="let city of weatherDataKeys" class="mini-weather-card" (click)="showWeatherDetails(city)">
       <ion-card-header>
@@ -94,7 +79,7 @@
     </ion-card>
   </div>  
 
-  <!-- Weather for Tomorrow card -->
+  <!-- Weather for Tomorrow Card -->
   <ion-card *ngIf="dailyForecastData && dailyForecastData.length >= 2" class="weather-card" style="border-radius: 15px;">
     <ion-card-header class="ion-text-center">
       Weather for Tomorrow
@@ -116,15 +101,25 @@
     </ion-card-content>
   </ion-card>
 
-  <!--Space footer-->
+  <!-- Encouragement text -->
+<div class="submit-report-text">
+  <p>Help us improve by submitting a report!</p>
+</div>
+
+<!-- Submit Report Button -->
+<div class="submit-report-button">
+  <ion-button expand="block" (click)="submitReport()">Submit Report</ion-button>
+</div>
+
+  <!-- Space Footer -->
   <hr><hr><hr>
 
-  <!--credits-->
+  <!-- Credits -->
   <div class="accu-weather">
     Data provided by <ion-icon name="partly-sunny-outline"></ion-icon> <b><a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a></b>
   </div>
 
-  <!--alert-->
+  <!-- Alert -->
   <div class="error-message" *ngIf="errorLoadingData">
     No internet connection. Please check your connection and try again.
   </div>

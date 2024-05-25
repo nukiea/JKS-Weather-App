@@ -1,0 +1,14 @@
+/* Add this CSS to your global.scss or report.page.scss */
+.report-content {
+    --ion-safe-area-top: 20px; /* Adjust top safe area padding */
+    --ion-padding: 20px; /* Adjust overall padding */
+  }
+  
+  .report-feedback {
+    margin-bottom: 20px; /* Add margin bottom to the feedback input */
+  }
+  
+  .submit-button {
+    margin-top: 20px; /* Add margin top to the submit button */
+  }
+  

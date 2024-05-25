@@ -44,7 +44,7 @@ export class HomePage {
     private router: Router,
     private alertController: AlertController
   ) {
-    this.loadData('MANILA'); 
+    this.loadData('MANILA');
     this.fetchWeatherDataForOtherCities();
   }
 
@@ -132,22 +132,22 @@ export class HomePage {
     this.weatherTemp = this.weatherData[city];
     this.cityName = city;
     this.weatherIcon = this.getWeatherIconUrl(this.weatherTemp.weather[0].icon);
-    this.fetchDailyForecast(city); 
+    this.fetchDailyForecast(city);
   }
 
   fetchDailyForecast(cityName: string) {
     this.httpClient.get<any>(`${API_URL}/forecast?q=${cityName}&cnt=8&appid=${API_KEY}`).subscribe(
       (results: any) => {
         const uniqueDates: string[] = [];
-        const nextSevenDays: any[] = []; 
-          results.list.forEach((day: any) => {
+        const nextSevenDays: any[] = [];
+        results.list.forEach((day: any) => {
           const date = new Date(day.dt * 1000).toDateString();
           if (!uniqueDates.includes(date)) {
             uniqueDates.push(date);
             nextSevenDays.push(day);
           }
         });
-  
+
         this.dailyForecastData = nextSevenDays;
       },
       (error) => {
@@ -162,5 +162,10 @@ export class HomePage {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayOfWeek = days[date.getDay()];
     return dayOfWeek;
+  }
+
+  submitReport() {
+    // Navigate to the create-report page
+    this.router.navigate(['/report']);
   }
 }

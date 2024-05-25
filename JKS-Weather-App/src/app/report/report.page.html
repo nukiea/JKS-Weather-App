@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Report</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Additional text for expressing appreciation -->
+  <p class="feedback-appreciation-text">We deeply appreciate your valuable feedback, as it guides us in enhancing your experience and continually improving our app for you.</p>
+  <ion-item>
+    <ion-label position="stacked">Feedback</ion-label>
+    <ion-textarea rows="6" placeholder="Enter your feedback here..."></ion-textarea>
+  </ion-item>
+  
+  <ion-button expand="block" color="primary">Submit</ion-button>
+</ion-content>
