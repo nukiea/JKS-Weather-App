@@ -1,0 +1,168 @@
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+ion-title {
+  font-family: 'Lobster', cursive;
+}
+
+.logo-image {
+  height: 70px; /* Adjust the height as needed */
+  display: block;
+  margin: auto;
+}
+
+.feels-like {
+  font-size: 1.2em;
+  color: #fff;
+  font-weight: lighter;
+}
+
+.feels-like-text {
+  margin-right: 4px; 
+  font-size: 3.3em; 
+  color: #fff;
+}
+
+.temperature-unit {
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #fff;
+}
+
+.detail-label {
+  font-size: 14px; 
+  color: #fff;
+  margin-right: 100px; /* Added space between label and data */
+}
+
+.report-label {
+  font-size: 13px; 
+  color: #fff;
+}
+
+.search-button {
+  font-size: 14px; 
+  padding: 5px 10px; 
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #fff;
+  margin: 0;
+}
+
+.weather-card ion-card {
+  border-radius: 19px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1); /* White with transparency */
+  backdrop-filter: blur(10px); /* Apply a blur effect */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Border to enhance the glassy effect */
+  color: #fff;
+  text-align: center; /* Center the content inside the card */
+}
+
+.weather-detail {
+  display: flex;
+  justify-content: left;
+  margin: 10px 0; /* Added margin for spacing between rows */
+}
+
+.detail-data{
+  display: flex;
+justify-content: flex-end;
+margin: 1px;
+padding-left: 85px;
+}
+
+.mini-weather-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.mini-weather-cards .mini-weather-card {
+  flex: 1 1 calc(33% - 10px); /* Adjust the card size */
+  margin: 5px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.1); /* White with transparency */
+  backdrop-filter: blur(10px); /* Apply a blur effect */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Border to enhance the glassy effect */
+  color: #fff;
+  text-align: center;
+}
+
+.mini-weather-card {
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+  border-radius: 19px; 
+  overflow: hidden; 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.3s ease;
+}
+
+.mini-weather-card:hover {
+  transform: scale(1.05); 
+}
+
+ion-content {
+  --background: transparent; 
+}
+
+.accu-weather {
+  position:static;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  color: #fff;
+}
+
+.accu-weather ion-icon {
+  vertical-align: middle;
+}
+
+.accu-weather b {
+  font-weight: bold;
+}
+
+.accu-weather a {
+  text-decoration: none;
+  color: #fff; 
+}
+
+.accu-weather a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #070606;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}

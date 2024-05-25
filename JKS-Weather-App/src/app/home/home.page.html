@@ -1,0 +1,131 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="toggleTemperatureUnit('celsius')" [color]="isCelsius ? 'primary' : 'medium'">
+        °C
+      </ion-button>
+      <ion-button (click)="toggleTemperatureUnit('fahrenheit')" [color]="!isCelsius ? 'primary' : 'medium'">
+        °F
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons>
+      <img slot="center" src="assets/logo.png" alt="Logo" class="logo-image">
+      </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshData()">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
+      <ion-button (click)="goToDevelopersPage()">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar #searchbar></ion-searchbar>
+    <ion-button slot="end" class="search-button" (click)="searchCity(searchbar.value)">Enter</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" [style.background-image]="isMorning() ? 'url(\'assets/DAY.jpg\')' : 'url(\'assets/NIGHT.jpg\')'">
+  
+  <!--main weather ion-->
+  <div class="weather-card" *ngIf="weatherTemp">
+    <ion-card>
+      <p class="report-label">"Today's Report"</p>
+      <ion-label slot="end">{{ todayDate | date: 'EEE dd MMM' }}</ion-label>
+      <ion-label slot="end">{{ getCurrentTime() }}</ion-label>
+    
+      <ion-icon name="thermometer"></ion-icon>
+      <span>Feels like</span>
+      <p>.....</p>
+      <span class="feels-like-text">
+        {{ isCelsius ? ((weatherTemp.main.temp - 273.15).toFixed(0)) : (((weatherTemp.main.temp - 273.15) * 9/5 + 32).toFixed(0)) }}
+      </span>
+      <span class="temperature-unit">{{ isCelsius ? '°C' : '°F' }}</span>      
+      <img slot="end" [src]="weatherIcon" alt="Weather Icon">
+
+      <ion-icon name="pin"></ion-icon>
+      <span><b>{{ cityName }}</b></span>
+
+      <div *ngIf="weatherTemp.main.temp_max" class="weather-detail">
+        <ion-icon name="arrow-up-circle"></ion-icon>
+        <span class="detail-label">Max Temp:</span>
+        <span class="detail-data">{{ isCelsius ? ((weatherTemp.main.temp_max - 273.15).toFixed(0)) : (((weatherTemp.main.temp_max - 273.15) * 9/5 + 32).toFixed(0)) }}°{{ isCelsius ? 'C' : 'F' }}</span>
+      </div>
+      
+      <div *ngIf="weatherTemp.main.temp_min" class="weather-detail">
+        <ion-icon name="arrow-down-circle"></ion-icon>
+        <span class="detail-label">Min Temp:</span>
+        <span class="detail-data">{{ isCelsius ? ((weatherTemp.main.temp_min - 273.15).toFixed(0)) : (((weatherTemp.main.temp_min - 273.15) * 9/5 + 32).toFixed(0)) }}°{{ isCelsius ? 'C' : 'F' }}</span>
+      </div>
+    
+      <div *ngIf="weatherTemp.main.humidity" class="weather-detail">
+        <ion-icon name="water"></ion-icon>
+        <span class="detail-label">Humidity:</span>
+        <span class="detail-data">{{ weatherTemp.main.humidity }}%</span>
+      </div>
+    
+      <div *ngIf="weatherTemp.weather" class="weather-detail">
+        <ion-icon name="list-outline"></ion-icon>
+        <span class="detail-label">Desc.:</span>
+        <span class="detail-data">{{ weatherTemp.weather[0].description }}</span>
+      </div>
+    
+      <div *ngIf="weatherTemp.wind" class="weather-detail">
+        <ion-icon name="speedometer"></ion-icon>
+        <span class="detail-label">Wind Speed:</span>
+        <span class="detail-data">{{ weatherTemp.wind.speed }} KPH</span>
+      </div>
+    </ion-card>
+  </div>
+  
+  <!--=mini weather cards-->
+  <div class="mini-weather-cards">
+    <ion-card *ngFor="let city of weatherDataKeys" class="mini-weather-card" (click)="showWeatherDetails(city)">
+      <ion-card-header>
+        {{ city }}
+      </ion-card-header>
+      <ion-card-content>
+        <div class="weather-info">
+          <img class="weather-icon" [src]="getWeatherIconUrl(weatherData[city].weather[0].icon)" alt="Weather Icon">
+          <p class="temperature">{{ isCelsius ? ((weatherData[city].main.temp - 273.15).toFixed(0)) : (((weatherData[city].main.temp - 273.15) * 9/5 + 32).toFixed(0)) }}{{ isCelsius ? '°C' : '°F' }}</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>  
+
+  <!-- Weather for Tomorrow card -->
+  <ion-card *ngIf="dailyForecastData && dailyForecastData.length >= 2" class="weather-card" style="border-radius: 15px;">
+    <ion-card-header class="ion-text-center">
+      Weather for Tomorrow
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <div>
+          <ion-thumbnail slot="start">
+            <img class="weather-icon" [src]="getWeatherIconUrl(dailyForecastData[1].weather[0].icon)" alt="Weather Icon">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ getDate(dailyForecastData[1].dt) }}</h2>
+            <p>{{ dailyForecastData[1].weather[0].description }}</p>
+            <p class="temperature">{{ isCelsius ? ((dailyForecastData[1].main.temp - 273.15).toFixed(0)) : (((dailyForecastData[1].main.temp - 273.15) * 9/5 + 32).toFixed(0)) }}{{ isCelsius ? '°C' : '°F' }}</p>
+            <p>{{ dailyForecastData[1].temp.max }} / {{ dailyForecastData[1].temp.min }}°C</p>
+          </ion-label>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!--Space footer-->
+  <hr><hr><hr>
+
+  <!--credits-->
+  <div class="accu-weather">
+    Data provided by <ion-icon name="partly-sunny-outline"></ion-icon> <b><a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a></b>
+  </div>
+
+  <!--alert-->
+  <div class="error-message" *ngIf="errorLoadingData">
+    No internet connection. Please check your connection and try again.
+  </div>
+</ion-content>

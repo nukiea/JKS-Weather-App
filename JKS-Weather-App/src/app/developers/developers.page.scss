@@ -1,0 +1,18 @@
+.developers-list {
+    display: flex;
+    justify-content: center; /* Align items horizontally to center */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+  }
+  
+  .developer-card {
+    text-align: center;
+    margin: 0 10px; /* Add margin between cards */
+    width: 200px; /* Set a fixed width for each card */
+  }
+  
+  .developer-img {
+    width: 100%; /* Set image width to fill the container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Optional: Add border-radius for rounded images */
+  }
+  
