@@ -8,12 +8,37 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <!-- Additional text for expressing appreciation -->
-  <p class="feedback-appreciation-text">We deeply appreciate your valuable feedback, as it guides us in enhancing your experience and continually improving our app for you.</p>
-  <ion-item>
-    <ion-label position="stacked">Feedback</ion-label>
-    <ion-textarea rows="6" placeholder="Enter your feedback here..."></ion-textarea>
-  </ion-item>
+
+  <!-- Display Feedback Section -->
+  <ion-card>
+    <ion-card-header>
+      Feedbacks
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let feedback of feedbacks">
+          {{ feedback.message }}
+          <!-- Display other properties of feedback as needed -->
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
   
-  <ion-button expand="block" color="primary">Submit</ion-button>
+  
+  <!-- Add Feedback Section -->
+  <ion-card>
+    <!-- Additional text for expressing appreciation -->
+    <h1 class="centered-message">
+      We deeply appreciate your valuable feedback, as it guides us in enhancing your experience and continually improving our app for you.
+    </h1>
+    <!-- User Input Section -->
+    <ion-item>
+      <ion-label position="stacked">Feedback</ion-label>
+      <ion-textarea rows="6" placeholder="Enter your feedback here..."></ion-textarea>
+    </ion-item>
+
+    <!-- Submit Button -->
+    <ion-button expand="block" color="primary">Submit</ion-button>
+  </ion-card>
+
 </ion-content>
