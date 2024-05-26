@@ -1,43 +1,31 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
-    </ion-buttons>
     <ion-title>Report</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-
-  <!-- Display Feedback Section -->
-  <ion-card>
-    <ion-card-header>
-      Feedbacks
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <!-- Display other properties of feedback as needed -->
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-  
-  
-  <!-- Add Feedback Section -->
-  <ion-card>
-    <!-- Additional text for expressing appreciation -->
-    <h1 class="centered-message">
-      We deeply appreciate your valuable feedback, as it guides us in enhancing your experience and continually improving our app for you.
-    </h1>
-    <!-- User Input Section -->
-    <ion-item>
-      <ion-label position="stacked">Feedback</ion-label>
-      <ion-textarea rows="6" placeholder="Enter your feedback here..."></ion-textarea>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let report of reports">
+      <ion-label>
+        <h2>{{ report.title }}</h2>
+        <p>{{ report.description }}</p>
+      </ion-label>
+      <ion-button (click)="editReport(report)" fill="outline" slot="end">Edit</ion-button>
+      <ion-button (click)="deleteReport(report)" color="danger" fill="outline" slot="end">Delete</ion-button>
     </ion-item>
+  </ion-list>
 
-    <!-- Submit Button -->
-    <ion-button expand="block" color="primary">Submit</ion-button>
-  </ion-card>
+  <ion-item *ngIf="!selectedReport">
+    <ion-input [(ngModel)]="newReport.title" placeholder="Title"></ion-input>
+    <ion-input [(ngModel)]="newReport.description" placeholder="Description"></ion-input>
+    <ion-button (click)="addReport()">Add Report</ion-button>
+  </ion-item>
 
+  <ion-item *ngIf="selectedReport">
+    <ion-input [(ngModel)]="selectedReport.title" placeholder="Title"></ion-input>
+    <ion-input [(ngModel)]="selectedReport.description" placeholder="Description"></ion-input>
+    <ion-button (click)="updateReport()">Update Report</ion-button>
+    <ion-button (click)="cancelEdit()" color="light">Cancel</ion-button>
+  </ion-item>
 </ion-content>

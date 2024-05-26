@@ -5,7 +5,15 @@
 export const environment = {
   production: false,
   API_KEY :'dc179afa7955b3fe807e8fb2372f72e7',
-  API_URL:'https://api.openweathermap.org/data/2.5/'
+  API_URL:'https://api.openweathermap.org/data/2.5/',
+  firebaseConfig: {
+    apiKey: "AIzaSyCg4JzROjoLXZJChoMzNTjthCWy9Nd9CQ4",
+    authDomain: "jks-weather.firebaseapp.com",
+    projectId: "jks-weather",
+    storageBucket: "jks-weather.appspot.com",
+    messagingSenderId: "736407598289",
+    appId: "1:736407598289:web:4dd3e4383471939fa941f0"
+  }
 };
 
 /*
